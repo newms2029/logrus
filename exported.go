@@ -129,6 +129,11 @@ func Panic(args ...interface{}) {
 	std.Panic(args...)
 }
 
+// Success logs a message at level Success on the standard logger.
+func Success(args ...interface{}) {
+	std.Success(args...)
+}
+
 // Fatal logs a message at level Fatal on the standard logger then the process will exit with status set to 1.
 func Fatal(args ...interface{}) {
 	std.Fatal(args...)
@@ -172,6 +177,11 @@ func ErrorFn(fn LogFunction) {
 // PanicFn logs a message from a func at level Panic on the standard logger.
 func PanicFn(fn LogFunction) {
 	std.PanicFn(fn)
+}
+
+// SuccessFn logs a message from a func at level Success on the standard logger.
+func SuccessFn(fn LogFunction) {
+	std.SuccessFn(fn)
 }
 
 // FatalFn logs a message from a func at level Fatal on the standard logger then the process will exit with status set to 1.
@@ -219,6 +229,11 @@ func Panicf(format string, args ...interface{}) {
 	std.Panicf(format, args...)
 }
 
+// Successf logs a message at level Success on the standard logger.
+func Successf(format string, args ...interface{}) {
+	std.Successf(format, args...)
+}
+
 // Fatalf logs a message at level Fatal on the standard logger then the process will exit with status set to 1.
 func Fatalf(format string, args ...interface{}) {
 	std.Fatalf(format, args...)
@@ -262,6 +277,11 @@ func Errorln(args ...interface{}) {
 // Panicln logs a message at level Panic on the standard logger.
 func Panicln(args ...interface{}) {
 	std.Panicln(args...)
+}
+
+// Successln logs a message at level Success on the standard logger.
+func Successln(args ...interface{}) {
+	std.Successln(args...)
 }
 
 // Fatalln logs a message at level Fatal on the standard logger then the process will exit with status set to 1.

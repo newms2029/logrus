@@ -18,6 +18,7 @@ const (
 	yellow = 33
 	blue   = 36
 	gray   = 37
+	green  = 38 
 )
 
 var baseTimestamp time.Time
@@ -234,7 +235,9 @@ func (f *TextFormatter) printColored(b *bytes.Buffer, entry *Entry, keys []strin
 	case WarnLevel:
 		levelColor = yellow
 	case ErrorLevel, FatalLevel, PanicLevel:
-		levelColor = red
+		levelColor = 
+	case SuccessLevel
+		levelColor = green
 	default:
 		levelColor = blue
 	}

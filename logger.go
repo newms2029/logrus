@@ -12,7 +12,7 @@ import (
 // LogFunction For big messages, it can be more efficient to pass a function
 // and only call it if the log level is actually enables rather than
 // generating the log message and then checking if the level is enabled
-type LogFunction func()[]interface{}
+type LogFunction func() []interface{}
 
 type Logger struct {
 	// The logs are `io.Copy`'d to this in a mutex. It's common to set this to a
@@ -200,6 +200,10 @@ func (logger *Logger) Log(level Level, args ...interface{}) {
 	}
 }
 
+func (logger *Logger) Successf(format string, args ...interface{}) {
+	logger.Successf(SuccessLevel, format, args...)
+}
+
 func (logger *Logger) LogFn(level Level, fn LogFunction) {
 	if logger.IsLevelEnabled(level) {
 		entry := logger.newEntry()
@@ -247,6 +251,10 @@ func (logger *Logger) Panic(args ...interface{}) {
 	logger.Log(PanicLevel, args...)
 }
 
+func (logger *Logger) Success(args ...interface{}) {
+	logger.Log(SuccessLevel, args...)
+}
+
 func (logger *Logger) TraceFn(fn LogFunction) {
 	logger.LogFn(TraceLevel, fn)
 }
@@ -284,6 +292,10 @@ func (logger *Logger) FatalFn(fn LogFunction) {
 
 func (logger *Logger) PanicFn(fn LogFunction) {
 	logger.LogFn(PanicLevel, fn)
+}
+
+func (logger *Logger) SuccessFn(fn LogFunction) {
+	logger.SuccessFn(DebugLevel, fn)
 }
 
 func (logger *Logger) Logln(level Level, args ...interface{}) {
@@ -331,6 +343,10 @@ func (logger *Logger) Fatalln(args ...interface{}) {
 
 func (logger *Logger) Panicln(args ...interface{}) {
 	logger.Logln(PanicLevel, args...)
+}
+
+func (logger *Logger) Successln(args ...interface{}) {
+	logger.Logln(SuccessLevel, args...)
 }
 
 func (logger *Logger) Exit(code int) {

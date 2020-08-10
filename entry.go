@@ -322,6 +322,10 @@ func (entry *Entry) Panic(args ...interface{}) {
 	panic(fmt.Sprint(args...))
 }
 
+func (entry *Entry) Success(args ...interface{}) {
+	entry.Log(SuccessLevel, args...)
+}
+
 // Entry Printf family functions
 
 func (entry *Entry) Logf(level Level, format string, args ...interface{}) {
@@ -367,6 +371,10 @@ func (entry *Entry) Panicf(format string, args ...interface{}) {
 	entry.Logf(PanicLevel, format, args...)
 }
 
+func (entry *Entry) Successf(format string, args ...interface{}) {
+	entry.Logf(SuccessLevel, format, args...)
+}
+
 // Entry Println family functions
 
 func (entry *Entry) Logln(level Level, args ...interface{}) {
@@ -410,6 +418,10 @@ func (entry *Entry) Fatalln(args ...interface{}) {
 
 func (entry *Entry) Panicln(args ...interface{}) {
 	entry.Logln(PanicLevel, args...)
+}
+
+func (entry *Entry) Successln(args ...interface{}) {
+	entry.Logln(SuccessLevel, args...)
 }
 
 // Sprintlnn => Sprint no newline. This is to get the behavior of how

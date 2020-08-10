@@ -39,6 +39,9 @@ func ParseLevel(lvl string) (Level, error) {
 	case "trace":
 		return TraceLevel, nil
 	}
+	case "success":
+		return SuccessLevel, nil
+	}
 
 	var l Level
 	return l, fmt.Errorf("not a valid logrus Level: %q", lvl)
@@ -73,6 +76,9 @@ func (level Level) MarshalText() ([]byte, error) {
 	case PanicLevel:
 		return []byte("panic"), nil
 	}
+	case PanicLevel:
+		return []byte("success"), nil
+	}
 
 	return nil, fmt.Errorf("not a valid logrus level %d", level)
 }
@@ -86,6 +92,7 @@ var AllLevels = []Level{
 	InfoLevel,
 	DebugLevel,
 	TraceLevel,
+	SuccessLevel,
 }
 
 // These are the different logging levels. You can set the logging level to log
@@ -109,6 +116,8 @@ const (
 	DebugLevel
 	// TraceLevel level. Designates finer-grained informational events than the Debug.
 	TraceLevel
+	// SuccessLevel level. Designates informational events defined as successful.
+	SuccessLevel
 )
 
 // Won't compile if StdLogger can't be realized by a log.Logger
@@ -149,6 +158,7 @@ type FieldLogger interface {
 	Errorf(format string, args ...interface{})
 	Fatalf(format string, args ...interface{})
 	Panicf(format string, args ...interface{})
+	Successf(format string, args ...interface{})
 
 	Debug(args ...interface{})
 	Info(args ...interface{})
@@ -158,6 +168,7 @@ type FieldLogger interface {
 	Error(args ...interface{})
 	Fatal(args ...interface{})
 	Panic(args ...interface{})
+	Success(args ...interface{})
 
 	Debugln(args ...interface{})
 	Infoln(args ...interface{})
@@ -167,6 +178,7 @@ type FieldLogger interface {
 	Errorln(args ...interface{})
 	Fatalln(args ...interface{})
 	Panicln(args ...interface{})
+	Successln(args ...interface{})
 
 	// IsDebugEnabled() bool
 	// IsInfoEnabled() bool
